@@ -1,4 +1,5 @@
-#include <systemc.h>
+#include <systemc>
+using namespace sc_core;
 
 // Simple SystemC module
 SC_MODULE(SimpleModule) {
