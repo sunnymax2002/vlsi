@@ -1,0 +1,27 @@
+import "fifo.act"; // import process definitions
+ 
+defproc test_source (chan!(int) X)
+{
+    int i;
+    chp {
+        i := 0;
+       *[ i < 10 -> X!i; i := i + 1 ]
+   }
+}
+ 
+defproc test_sink (chan?(int) X)
+{
+   int x;
+   chp {
+      *[ X?x; log ("received ", x) ]
+   }
+}
+ 
+defproc test()
+{
+    one_place_buffer b;
+    test_source tsrc;
+    test_sink tsink;
+    b.L = tsrc.X;
+    b.R = tsink.X;
+}
